@@ -1,0 +1,41 @@
+### Get Products
+GET http://localhost:3003/products
+
+### Get Products By ID
+GET http://localhost:3003/product/18
+
+### Get Shoppings By Id
+GET http://localhost:3003/cart?id=2
+
+### Client Create
+POST http://localhost:3003/client
+Content-Type: application/json
+
+{
+  "name": "Gabriel",
+  "email": "email@email.com",
+  "password": 1234567
+}
+
+### Shopping Cart Create
+POST http://localhost:3003/cart
+Content-Type: application/json
+
+{
+  "quantity": 5,
+  "price": 8.99,
+  "client_id": "2",
+  "product_id": "18"
+}
+
+
+### Get Login Clients
+GET http://localhost:3003/login?email=email@email.com&password=1234567
+
+### Edit Stock
+PUT http://localhost:3003/stock?id=16
+Content-Type: application/json
+
+{
+  "qty_stock": 158
+}
