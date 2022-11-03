@@ -15,7 +15,7 @@ export const getLoginClients = async (req: Request, res: Response) => {
       throw new Error("E-mail e/ou senha inválidos.");
     }
 
-    res.status(200).send({account: result});
+    res.status(200).send({message: "User found!", account: result[0]});
   } catch (error: any) {
     res.status(errorCode).send({message: error.message});
   };
