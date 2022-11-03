@@ -11,9 +11,8 @@ export const getLoginClients = async (req: Request, res: Response) => {
     const result = await clientDatabase.getLoginClients(email, password);
 
     if(!result.length){
-      console.log(result)
       errorCode = 404
-      throw new Error("Usuário não encontrado.");
+      throw new Error("E-mail e/ou senha inválidos.");
     }
 
     res.status(200).send({account: result});

@@ -1,11 +1,23 @@
-import { useState } from "react";
-import { editStock, shoppingCartCreate } from "../services/ApiRequest";
+import { useEffect, useState } from "react";
+import { getProducts, editStock, shoppingCartCreate } from "../services/ApiRequest";
 import GlobalStateContext from "./GlobalStateContext";
 
 const GlobalState = (props) => {
-  const [cart, setCart] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
-  const [modal, setModal] = useState(false);
+  const [ products, setProducts ] = useState([])
+  const [ loading, setLoading ] = useState(false)
+  const [ cart, setCart ] = useState([]);
+  const [ subtotal, setSubtotal ] = useState(0);
+  const [ modalShopping, setModalShopping ] = useState(false);
+
+  useEffect(() => {
+    handleGetProducts()
+  }, [])
+
+  const handleGetProducts = async() => {
+    setLoading(true)
+    setProducts(await getProducts())
+    setLoading(false)
+  }
 
   const addProduct = (product, quantity) => {
     const saveProduct = cart.find(item => product.id === item.id);
@@ -45,7 +57,7 @@ const GlobalState = (props) => {
 
   const buyProducts = async () => {
     const client = JSON.parse(localStorage.getItem('user'));
-    const clientID = client[0].id;
+    const clientID = client.id;
     await Promise.all(states.cart && states.cart.map(async (product) => {
 
       const stockBody = {
@@ -63,12 +75,18 @@ const GlobalState = (props) => {
 
       shoppingCartCreate(cartBody);
     }))
+    setCart([])
+    setSubtotal(0)
+    setTimeout(() => {
+      handleGetProducts()
+    }, 300)
+    setModalShopping(!states.modalShopping)
   }
 
-  const states = {cart, subtotal, modal};
-  const setters = {setCart, setSubtotal, setModal};
+  const states = {products, loading, cart, subtotal, modalShopping};
+  const setters = {setProducts, setLoading, setCart, setSubtotal, setModalShopping};
   const requests = {};
-  const functions = {addProduct, removeProduct, buyProducts};
+  const functions = {handleGetProducts, addProduct, removeProduct, buyProducts};
 
   return(
     <GlobalStateContext.Provider value={{states,setters,requests,functions}}>

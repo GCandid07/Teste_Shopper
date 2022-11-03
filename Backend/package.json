@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node ./build/index.js",
     "dev": "ts-node-dev ./src/index.ts",
-    "migrations": "tsc && node ./build/database/migrations.js"
+    "migrations": "tsc && node ./build/migrations/migrations.js"
   },
   "keywords": [],
   "author": "Cândido",

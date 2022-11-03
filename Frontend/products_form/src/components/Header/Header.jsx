@@ -11,9 +11,9 @@ export const Header = () => {
     <Container>
       <Menu>
         <li>Shoppers</li>
-        <li onClick={() => setters.setModal(!states.modal)}>🛒<span>{states.modal? "Fechar": "Abrir"}</span></li>
+        <li onClick={() => setters.setModalShopping(!states.modalShopping)}>🛒<span>{states.modalShopping? "Fechar": "Abrir"}</span></li>
       </Menu>
-      <ShoppingCart display={states.modal.toString()}/>
+      <ShoppingCart display={states.modalShopping.toString()}/>
     </Container>
   )
 }

@@ -6,7 +6,7 @@ const BASE_URL = "http://localhost:3003/"
 export const getProducts = async() => {
   try {
     const {data} = await axios.get(`${BASE_URL}products`)
-    return data
+    return data.products
   } catch (error) {
     const { message } = error.response.data
     alert(message)

@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Container, ContainerModal, ContentCart, ContentList, Products, ProductsList, TotalPrice } from "./Styles";
 
 export const ShoppingCart = ({display}) => {
-  const { states, setters, functions } = useContext(GlobalStateContext)
+  const { states, functions } = useContext(GlobalStateContext)
   // const successToast = (message) => toast.success(message);
   const failtToast = (message) => toast.error(message);
 
@@ -49,13 +49,6 @@ export const ShoppingCart = ({display}) => {
     })
   }
 
-  const buy = () => {
-    functions.buyProducts()
-    setters.setCart([])
-    setters.setSubtotal(0)
-    setters.setModal(!states.modal)
-  }
-
   return (
     <Container display={display}>
       <ContainerModal display={display}>
@@ -72,7 +65,7 @@ export const ShoppingCart = ({display}) => {
               <p>
                 Valor Total: R$ {states.subtotal && states.subtotal.toFixed(2).replace(".", ",")}
               </p>
-              <button onClick={buy}>Finalizar</button>
+              <button onClick={functions.buyProducts}>Finalizar</button>
             </TotalPrice>
         </ContentCart>
       </ContainerModal>
