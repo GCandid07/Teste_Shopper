@@ -3,11 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { createClient } from "./endpoints/createClient"
 import { createShoppingCart } from "./endpoints/createShoppingCart";
+import { createOrder } from "./endpoints/createOrder";
 import { getProducts } from "./endpoints/getProducts";
 import { getProductsById } from "./endpoints/getProductsById";
 import { getAllShoppings } from "./endpoints/getAllShoppings";
 import { getLoginClients } from "./endpoints/getLoginClients";
 import { editStock } from "./endpoints/editStock";
+import { createShipping } from "./endpoints/createShipping";
 
 dotenv.config();
 const app = express();
@@ -22,6 +24,8 @@ app.post("/client", createClient)
 app.post("/cart", createShoppingCart)
 app.get("/login", getLoginClients)
 app.put("/stock", editStock)
+app.post("/order", createOrder)
+app.post("/shipping", createShipping)
 
 app.listen(process.env.PORT || 3003, () => {
   console.log(`Server is running in port ${process.env.PORT || 3003}`);

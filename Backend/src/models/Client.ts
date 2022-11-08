@@ -45,3 +45,7 @@ export class Client {
     this.token = newToken
   };
 };
+
+export type AuthenticationData = {
+  id: string
+}

@@ -1,13 +1,19 @@
-import Loading from '../Loading/Loading'
-import { useContext} from "react";
+import { Loading } from '../Loading/Loading'
+import { useState, useContext} from "react";
 import GlobalStateContext from '../../global/GlobalStateContext';
 import { Container, Product, ProductImage, ProductName, ProductPrice, ProductStock, ProductButton } from './Styles'
+import { SucessFlashMessage } from '../FlashMessage/FlashMessage';
 
 export const Cards = () => {
   const { states, functions } = useContext(GlobalStateContext)
+  const [ productAdd, setProductAdd ] = useState(false)
 
   const addProducts = (product, quantity) => {
     functions.addProduct(product, quantity)
+    setProductAdd(true)
+    setTimeout(() => {
+      setProductAdd(false)
+    }, 2000)
   }
 
   const renderProducts = () => {
@@ -26,6 +32,9 @@ export const Cards = () => {
   
   return (
     <Container>
+      {
+        productAdd ? <SucessFlashMessage Message="Produto Adicionado com Sucesso!"/> : ""
+      }
       {states.loading 
         ? <Loading />
         : renderProducts()

@@ -17,7 +17,7 @@ export const HomePage = () => {
       {hasLogin ? <Login /> : <Register />}
       {
         hasLogin 
-        ? <Paragraph>Se ainda não possui uma conta: <span onClick={() => setHasLogin(!hasLogin)}>Cadastrar</span></Paragraph>
+        ? <Paragraph>Não tem conta?<span onClick={() => setHasLogin(!hasLogin)}>Crie uma!</span></Paragraph>
         : <Paragraph>Se já possui uma conta: <span onClick={() => setHasLogin(!hasLogin)}>Logar</span></Paragraph>
       }
     </Container>

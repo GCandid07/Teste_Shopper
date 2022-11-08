@@ -5,25 +5,24 @@ export class ClientDatabase extends BaseDatabase {
   public static TABLE_CLIENTS = "Table_Clients";
 
   public async getAllClients() {
-    const result = await BaseDatabase
+    const result = await ClientDatabase
     .connection(ClientDatabase.TABLE_CLIENTS)
     .select("id");
 
     return result;
   }
 
-  public async getLoginClients(email: string, password: string) {
-    const result = await BaseDatabase
+  public async getLoginClients(email: string) {
+    const result = await ClientDatabase
     .connection(ClientDatabase.TABLE_CLIENTS)
     .select()
     .where({email})
-    .andWhere({password})
 
     return result;
   }
 
   public async getClientById(id: string) {
-    const result = await BaseDatabase
+    const result = await ClientDatabase
     .connection(ClientDatabase.TABLE_CLIENTS)
     .select()
     .where({id});
@@ -32,7 +31,7 @@ export class ClientDatabase extends BaseDatabase {
   };
 
   public async getClientByEmail(email: string) {
-    const result = await BaseDatabase
+    const result = await ClientDatabase
     .connection(ClientDatabase.TABLE_CLIENTS)
     .select()
     .where({email})
@@ -41,7 +40,7 @@ export class ClientDatabase extends BaseDatabase {
   }
 
   public async createClient(newClient: Client){
-    const result = await BaseDatabase
+    const result = await ClientDatabase
     .connection(ClientDatabase.TABLE_CLIENTS)
     .insert({
       id: newClient.getID(),

@@ -5,7 +5,7 @@ export class ShoppingCartDatabase extends BaseDatabase {
   public static TABLE_SHOPPING_CART = "Table_Shopping_Cart";
 
   public async getAllShoppings(column: string, value: string){
-    const result = await BaseDatabase
+    const result = await ShoppingCartDatabase
     .connection(ShoppingCartDatabase.TABLE_SHOPPING_CART)
     .select()
     .where(column , "like" , `%${value}%`);
@@ -14,12 +14,12 @@ export class ShoppingCartDatabase extends BaseDatabase {
   };
 
   public async createShoppingCart (newShoppingCart: ShoppingCart) {
-    const result = await BaseDatabase
+    const result = await ShoppingCartDatabase
     .connection(ShoppingCartDatabase.TABLE_SHOPPING_CART)
     .insert({
       qty_total: newShoppingCart.getQuantity(),
       price_total: newShoppingCart.getPrice(),
-      client_id: newShoppingCart.getClient_id(),
+      order_id: newShoppingCart.getOrder_id(),
       product_id: newShoppingCart.getProduct_id()
     });
 

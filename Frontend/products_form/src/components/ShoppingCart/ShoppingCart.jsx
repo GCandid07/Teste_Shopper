@@ -1,11 +1,22 @@
-import { useContext} from "react";
+import { useContext } from "react";
 import GlobalStateContext from "../../global/GlobalStateContext"
+import { DeliveryShipping } from "../DeliveryShipping/DeliveryShipping";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Container, ContainerModal, ContentCart, ContentList, Products, ProductsList, TotalPrice } from "./Styles";
+import {
+  Container,
+  ContainerModal,
+  ContentCart,
+  ContentList,
+  Footer,
+  Products,
+  ProductsList,
+  TotalPrice
+} from "./Styles";
 
 export const ShoppingCart = ({display}) => {
   const { states, functions } = useContext(GlobalStateContext)
+
   // const successToast = (message) => toast.success(message);
   const failtToast = (message) => toast.error(message);
 
@@ -36,7 +47,7 @@ export const ShoppingCart = ({display}) => {
                 +
               </button>
 
-                {products.quantity}
+                <span>{products.quantity}</span>
                 
               <button onClick={() => editQuantity(products, -1)}>
                 -
@@ -61,12 +72,15 @@ export const ShoppingCart = ({display}) => {
               <li>Preço</li>
             </ContentList>
             {productInCartRender()}
-            <TotalPrice>
-              <p>
-                Valor Total: R$ {states.subtotal && states.subtotal.toFixed(2).replace(".", ",")}
-              </p>
-              <button onClick={functions.buyProducts}>Finalizar</button>
-            </TotalPrice>
+            <Footer>
+              <DeliveryShipping />
+              <TotalPrice>
+                <p>
+                  Valor Total: R$ {states.subtotal && states.subtotal.toFixed(2).replace(".", ",")}
+                </p>
+                <button onClick={functions.buyProducts}>Finalizar</button>
+              </TotalPrice>
+            </Footer>
         </ContentCart>
       </ContainerModal>
     </Container>

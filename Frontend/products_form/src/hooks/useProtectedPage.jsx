@@ -6,7 +6,7 @@ const useProtectedPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userExists = localStorage.getItem("user")
+    const userExists = localStorage.getItem("token")
 
     if (userExists === null) {
       goToHomePage(navigate)

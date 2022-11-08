@@ -5,9 +5,9 @@ import { ShoppingCart } from "../models/ShoppingCart";
 export const createShoppingCart = async (req: Request, res: Response):Promise<void> => {
   let errorCode = 400;
   try {
-    const { quantity, price, client_id, product_id } = req.body;
+    const { quantity, price, order_id, product_id } = req.body;
 
-    if(!quantity || !price || !client_id || !product_id){
+    if(!quantity || !price || !order_id || !product_id){
       errorCode = 422;
       throw new Error("Required values.");
     };
@@ -17,7 +17,7 @@ export const createShoppingCart = async (req: Request, res: Response):Promise<vo
     const newShoppingCart = new ShoppingCart(
       quantity,
       price,
-      client_id,
+      order_id,
       product_id
     );
 

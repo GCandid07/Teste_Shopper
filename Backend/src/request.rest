@@ -13,8 +13,8 @@ Content-Type: application/json
 
 {
   "name": "Gabriel",
-  "email": "email@email.com",
-  "password": 1234567
+  "email": "teste@teste2.com",
+  "password": "teste"
 }
 
 ### Shopping Cart Create
@@ -24,13 +24,13 @@ Content-Type: application/json
 {
   "quantity": 5,
   "price": 8.99,
-  "client_id": "2",
+  "order_id": "1",
   "product_id": "18"
 }
 
 
 ### Get Login Clients
-GET http://localhost:3003/login?email=email@email.com&password=1234567
+GET http://localhost:3003/login?email=teste@teste2.com&password=teste
 
 ### Edit Stock
 PUT http://localhost:3003/stock?id=16
@@ -38,4 +38,20 @@ Content-Type: application/json
 
 {
   "qty_stock": 158
+}
+
+### Create Order
+POST http://localhost:3003/order
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU1NGRhYTY2LTljNDUtNDY1Yy04NWM1LTE0NWQyZmQ1YTg4MyIsImlhdCI6MTY2Nzg2NjIxMSwiZXhwIjoxNjY3OTUyNjExfQ.XzfzERfB65BkayWTgSeB31omuCMqSljmZrQtMNCeAiI
+
+### Create Shipping
+
+POST http://localhost:3003/shipping
+Content-Type: application/json
+
+{
+  "order_id": "1",
+  "initial": "2022-11-07 11:00:00.474",
+  "final": "2022-11-07 11:00:00.474"
 }

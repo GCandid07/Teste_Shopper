@@ -1,6 +1,6 @@
-import { Spinner } from "./Styles"
+import { Spinner, SpinnerRotate } from "./Styles"
 
-const Loading = () => {
+export const Loading = () => {
   return (
     <Spinner>
       <span></span>
@@ -10,4 +10,12 @@ const Loading = () => {
   )
 }
 
-export default Loading
+export const LoadingRotate = () => {
+  return (
+    <SpinnerRotate>
+      <span></span>
+      <span></span>
+      <span></span>
+    </SpinnerRotate>
+  )
+} 

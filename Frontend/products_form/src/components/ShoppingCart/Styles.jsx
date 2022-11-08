@@ -13,7 +13,7 @@ export const Container = styled.div`
 export const ContainerModal = styled.div`
   overflow: auto;
   width: 500px;
-  max-height: calc(100vh - 14vh - 2em);
+  max-height: calc(100vh - 10vh - 2em);
   background-color: #fff;
   border-radius: 5px;
   position: absolute;
@@ -76,12 +76,26 @@ export const ContentList = styled.ul`
   }
 `;
 
+export const Footer = styled.div`
+  width: 100%;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  right: 0;
+  bottom: 0;
+  background-color: #fff;
+  border: 1px solid #ddd; 
+`;
+
 export const Products = styled.div`
   margin-bottom: .5em;
 `;
 
 export const ProductsList = styled(ContentList)`
-  margin: 0 2px;
+  margin: 4px 2px;
   box-shadow: 1px 3px 8px #ccc;
   li {
     width: 40%;
@@ -91,14 +105,20 @@ export const ProductsList = styled(ContentList)`
     align-items: center;
     justify-content: space-between;
     font-size: 1.2em;
+    border: 1px solid #cccccc6b;
+    border-radius: 10px;
+    span {
+      color: #4f9f6f;
+      padding: 0 .5em;
+    }
   }
   li:nth-child(3){
     font-size: 1.2em;
   }
   button {
-    background-color: #d3d2d2d1;
+    height: 50px;
+    background-color: #fff;
     border: none;
-    box-shadow: 7px 6px 28px 1px #0000003d;
     font-size: 1.2em;
     padding: .4em .6em;
     transition: 0.2s all;
@@ -106,17 +126,15 @@ export const ProductsList = styled(ContentList)`
     outline: none;
     color: #4f9f6f;
     transition: all .3s;
-    &:nth-child(1){
-      margin: 0 .5em 0 0;
-    }
-    &:nth-child(2){
-      margin: 0 0 0 .5em;
-    }
     &:active {
       transform: scale(0.98);
       box-shadow: 3px 2px 22px 1px #0000003d;
       background-color: #4f9f6f;
       color: #d3d2d2d1;
+    }
+    &:hover {
+      background-color: #4f9f6f;
+      color: #fff;
     }
   }
   @media screen and (max-width: 600px){
@@ -132,10 +150,8 @@ export const TotalPrice = styled.div`
   justify-content: space-between;
   padding: 20px;
   width: 100%;
-  height: 6vh;
-  position: sticky;
-  right: 0;
-  bottom: 0;
+  height: 10vh;
+  
   background-color: #35a584;
   border-top: 1px solid #777;
   p {

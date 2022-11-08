@@ -1,23 +1,26 @@
 import { useEffect, useState } from "react";
-import { getProducts, editStock, shoppingCartCreate } from "../services/ApiRequest";
+import { getProducts, editStock, shoppingCartCreate, createOrder, createShipping } from "../services/ApiRequest";
 import GlobalStateContext from "./GlobalStateContext";
 
 const GlobalState = (props) => {
-  const [ products, setProducts ] = useState([])
-  const [ loading, setLoading ] = useState(false)
+  const [ products, setProducts ] = useState([]);
+  const [ loading, setLoading ] = useState(false);
   const [ cart, setCart ] = useState([]);
   const [ subtotal, setSubtotal ] = useState(0);
   const [ modalShopping, setModalShopping ] = useState(false);
+  const [ shipping, setShipping ] = useState([]);
 
   useEffect(() => {
-    handleGetProducts()
-  }, [])
+    handleGetProducts();
+  }, []);
 
   const handleGetProducts = async() => {
-    setLoading(true)
-    setProducts(await getProducts())
-    setLoading(false)
-  }
+    setLoading(true);
+    setProducts(await getProducts());
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  };
 
   const addProduct = (product, quantity) => {
     const saveProduct = cart.find(item => product.id === item.id);
@@ -30,10 +33,10 @@ const GlobalState = (props) => {
               };
           };
           return item;
-      });
-      setCart(newCart);
+        });
+        setCart(newCart);
       } else {
-        alert("Quantidade excede o limite.")
+        alert("Quantidade excede o limite.");
       };
     } else {
       const newProduct = {...product, quantity: quantity};
@@ -56,8 +59,21 @@ const GlobalState = (props) => {
   }
 
   const buyProducts = async () => {
-    const client = JSON.parse(localStorage.getItem('user'));
-    const clientID = client.id;
+    const token = localStorage.getItem("token")
+    const orderBody = {
+      token
+    }
+    const orderID = await createOrder(orderBody);
+    console.log(orderID)
+
+    const shippingBody = {
+      order_id: orderID,
+      initial: shipping.initialDateTime?.toISOString()?.slice(0, 19)?.replace('T', ' '),
+      final: shipping.finalDateTime?.toISOString()?.slice(0, 19)?.replace('T', ' ')
+    };
+
+    await createShipping(shippingBody);
+    
     await Promise.all(states.cart && states.cart.map(async (product) => {
 
       const stockBody = {
@@ -69,22 +85,22 @@ const GlobalState = (props) => {
       const cartBody = {
         quantity: product.quantity,
         price: product.price,
-        client_id: clientID,
+        order_id: orderID,
         product_id: product.id
       };
 
       shoppingCartCreate(cartBody);
     }))
-    setCart([])
-    setSubtotal(0)
+    setCart([]);
+    setSubtotal(0);
     setTimeout(() => {
-      handleGetProducts()
-    }, 300)
-    setModalShopping(!states.modalShopping)
-  }
+      handleGetProducts();
+    }, 300);
+    setModalShopping(!states.modalShopping);
+  };
 
-  const states = {products, loading, cart, subtotal, modalShopping};
-  const setters = {setProducts, setLoading, setCart, setSubtotal, setModalShopping};
+  const states = {products, loading, cart, subtotal, modalShopping, shipping};
+  const setters = {setProducts, setLoading, setCart, setSubtotal, setModalShopping, setShipping};
   const requests = {};
   const functions = {handleGetProducts, addProduct, removeProduct, buyProducts};
 
